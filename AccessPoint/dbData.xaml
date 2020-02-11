@@ -18,5 +18,14 @@
             <TextBlock>Дата установки</TextBlock>
             <TextBlock>Категории</TextBlock>
         </ComboBox>
+        <ComboBox x:Name="categories" SelectedIndex="0" Margin="191,10,0,0" FontSize="14" Height="35" VerticalAlignment="Top" HorizontalAlignment="Left" Width="150" >
+            <TextBlock>Категории</TextBlock>
+            <TextBlock>Некатегорированное</TextBlock>
+            <TextBlock>ДСП</TextBlock>
+            <TextBlock>Секретно</TextBlock>
+            <TextBlock>Сов.Секретно</TextBlock>
+        </ComboBox>
+        <TextBox x:Name="roomName" Margin="346,10,0,0" Padding="30,5" TextWrapping="Wrap" Text="room" FontSize="14" Height="35" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100" PreviewMouseLeftButtonDown="roomName_PreviewMouseLeftButtonDown"/>
+        <TextBox x:Name="kafedrName" Margin="451,10,0,0" Padding="21,5" TextWrapping="Wrap" Text="kafedras" FontSize="14" Height="35" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100" PreviewMouseLeftButtonDown="kafedrName_PreviewMouseLeftButtonDown"/>
     </Grid>
 </Window>
