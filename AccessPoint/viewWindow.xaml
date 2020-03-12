@@ -1,0 +1,23 @@
+﻿<Window x:Name="viewWin" x:Class="AccessPoint.viewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="viewWindow" Height="450" Width="800">
+    <Grid>
+        <DataGrid x:Name="dbDataGrid" Margin="0,50,0,50"  />
+        <ComboBox x:Name="tableBox" SelectedIndex="0" Margin="10,10,0,0"  FontSize="14" Height="35" VerticalAlignment="Top" HorizontalAlignment="Left" Width="166">
+            <TextBlock>Таблицы</TextBlock>
+            <TextBlock>Кабинеты</TextBlock>
+            <TextBlock>Кафедры</TextBlock>
+            <TextBlock>Название Абонентского пункта</TextBlock>
+            <TextBlock>Защищенность</TextBlock>
+            <TextBlock>Дата установки</TextBlock>
+            <TextBlock>Категории</TextBlock>
+        </ComboBox>
+        <Button x:Name="viewButton" Content="View" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="120" Height="30" Click="viewButton_Click"/>
+        <Button x:Name="backButton" Content="Back" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="120" Height="30" Click="backButton_Click" />
+
+    </Grid>
+</Window>

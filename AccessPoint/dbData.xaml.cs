@@ -20,136 +20,138 @@ namespace AccessPoint
             MySqlConnection connection = new MySqlConnection("server = localhost;port = 3306; username = root; password = 1123581321Bkmz ; database = accesspoint");
             DataTable table = new DataTable();
 
-            
-            if(tableBox.Text != "Таблицы" && categories.Text == "Категории")//add conditions
+            if ((roomName.Text.Equals("") && kafedrName.Text.Equals("")) ||
+                (roomName.Text.Equals("room") && kafedrName.Text.Equals("kafedras")) ||
+                (roomName.Text.Equals("room") && kafedrName.Text.Equals("")) ||
+                (roomName.Text.Equals("") && kafedrName.Text.Equals("kafedras")))// select onlu categories
             {
-                if (tableBox.Text == "Кабинеты")
-                {
-                    MySqlCommand command = new MySqlCommand("SELECT * FROM room ", connection);
+                MySqlCommand command = new MySqlCommand("SELECT name,number_of_room,categories,number_of_cathedras,date,isProtected " +
+                    "                                    FROM name_of_access_point " +
+                    "                                    LEFT JOIN cathedras ON name_of_access_point.cathedras_idcathedras = cathedras.idcathedras " +
+                    "                                    LEFT JOIN is_protected_access_point ON name_of_access_point.is_protected_access_point_idis_protected_access_point = is_protected_access_point.idis_protected_access_point " +
+                    "                                    LEFT JOIN installation_date ON name_of_access_point.installation_date_idinstallation_date = installation_date.idinstallation_date " +
+                    "                                    LEFT JOIN room ON name_of_access_point.Room_idRoom = room.idRoom " +
+                    "                                    LEFT JOIN categories ON room.categories_idcategories = categories.idcategories" +
+                "                                    WHERE categories = \"" + categories.Text + "\"", connection);
 
-                    connection.Open();
+                connection.Open();
 
-                    MySqlDataReader reader = command.ExecuteReader();
-                    table.Load(reader);
-                    dbDataGrid.AutoGenerateColumns = true;
-                    dbDataGrid.ItemsSource = table.DefaultView;
+                MySqlDataReader reader = command.ExecuteReader();
+                table.Load(reader);
+                dbDataGrid.AutoGenerateColumns = true;
+                dbDataGrid.ItemsSource = table.DefaultView;
 
-                    connection.Close();
-                }
-                if (tableBox.Text == "Кафедры")
-                {
-                    MySqlCommand command = new MySqlCommand("SELECT * FROM cathedras ", connection);
-
-                    connection.Open();
-
-                    MySqlDataReader reader = command.ExecuteReader();
-                    table.Load(reader);
-                    dbDataGrid.AutoGenerateColumns = true;
-                    dbDataGrid.ItemsSource = table.DefaultView;
-
-                    connection.Close();
-                }
-                if (tableBox.Text == "Название Абонентского пункта")
-                {
-                    MySqlCommand command = new MySqlCommand("SELECT name,number_of_room,categories,number_of_cathedras,date,isProtected " +
-                        "                                    FROM name_of_access_point " +
-                        "                                    LEFT JOIN cathedras ON name_of_access_point.cathedras_idcathedras = cathedras.idcathedras " +
-                        "                                    LEFT JOIN is_protected_access_point ON name_of_access_point.is_protected_access_point_idis_protected_access_point = is_protected_access_point.idis_protected_access_point " +
-                        "                                    LEFT JOIN installation_date ON name_of_access_point.installation_date_idinstallation_date = installation_date.idinstallation_date " +
-                        "                                    LEFT JOIN room ON name_of_access_point.Room_idRoom = room.idRoom " +
-                        "                                    LEFT JOIN categories ON room.categories_idcategories = categories.idcategories", connection);
-
-                    connection.Open();
-
-                    MySqlDataReader reader = command.ExecuteReader();
-                    table.Load(reader);
-                    dbDataGrid.AutoGenerateColumns = true;
-                    dbDataGrid.ItemsSource = table.DefaultView;
-
-                    connection.Close();
-                }
-                if (tableBox.Text == "Защищенность")
-                {
-                    MySqlCommand command = new MySqlCommand("SELECT * FROM is_protected_access_point ", connection);
-
-                    connection.Open();
-
-                    MySqlDataReader reader = command.ExecuteReader();
-                    table.Load(reader);
-                    dbDataGrid.AutoGenerateColumns = true;
-                    dbDataGrid.ItemsSource = table.DefaultView;
-
-                    connection.Close();
-                }
-                if (tableBox.Text == "Дата установки")
-                {
-                    MySqlCommand command = new MySqlCommand("SELECT * FROM installation_date ", connection);
-
-                    connection.Open();
-
-                    MySqlDataReader reader = command.ExecuteReader();
-                    table.Load(reader);
-                    dbDataGrid.AutoGenerateColumns = true;
-                    dbDataGrid.ItemsSource = table.DefaultView;
-
-                    connection.Close();
-                }
-                if (tableBox.Text == "Категории")
-                {
-                    MySqlCommand command = new MySqlCommand("SELECT * FROM categories ", connection);
-
-                    connection.Open();
-
-                    MySqlDataReader reader = command.ExecuteReader();
-                    table.Load(reader);
-                    dbDataGrid.AutoGenerateColumns = true;
-                    dbDataGrid.ItemsSource = table.DefaultView;
-
-                    connection.Close();
-                }
-                //if (tableBox.Text == "Таблицы")
-                //{
-                //    MessageBox.Show("Chooce conditions!","Warning");
-                //}
+                connection.Close();
             }
-            else
+            if ((categories.Text.Equals("Категории") && kafedrName.Text.Equals("")) || 
+                (categories.Text.Equals("Категории") && kafedrName.Text.Equals("kafedras")))//select only rooms
             {
-                if ((roomName.Text == "" && kafedrName.Text == "")||(roomName.Text == "room" && kafedrName.Text == "kafedras") || (roomName.Text == "" && kafedrName.Text == "kafedras") || (roomName.Text == "room" && kafedrName.Text == ""))
-                {
-                    MySqlCommand command = new MySqlCommand("SELECT name,number_of_room,categories " +
-                        "                                    FROM name_of_access_point " +
-                        "                                    LEFT JOIN room ON name_of_access_point.idtable1 = room.idRoom " +
-                        "                                    LEFT JOIN categories ON room.categories_idcategories = categories.idcategories" +
-                        "                                    WHERE categories = \"" + categories.Text + "\"", connection);
+                MySqlCommand command = new MySqlCommand("SELECT name,number_of_room,categories,number_of_cathedras,date,isProtected " +
+                    "                                    FROM name_of_access_point " +
+                    "                                    LEFT JOIN cathedras ON name_of_access_point.cathedras_idcathedras = cathedras.idcathedras " +
+                    "                                    LEFT JOIN is_protected_access_point ON name_of_access_point.is_protected_access_point_idis_protected_access_point = is_protected_access_point.idis_protected_access_point " +
+                    "                                    LEFT JOIN installation_date ON name_of_access_point.installation_date_idinstallation_date = installation_date.idinstallation_date " +
+                    "                                    LEFT JOIN room ON name_of_access_point.Room_idRoom = room.idRoom " +
+                    "                                    LEFT JOIN categories ON room.categories_idcategories = categories.idcategories" +
+                    "                                    WHERE number_of_room = \"" + roomName.Text + "\"", connection);
 
-                    connection.Open();
+                connection.Open();
 
-                    MySqlDataReader reader = command.ExecuteReader();
-                    table.Load(reader);
-                    dbDataGrid.AutoGenerateColumns = true;
-                    dbDataGrid.ItemsSource = table.DefaultView;
+                MySqlDataReader reader = command.ExecuteReader();
+                table.Load(reader);
+                dbDataGrid.AutoGenerateColumns = true;
+                dbDataGrid.ItemsSource = table.DefaultView;
 
-                    connection.Close();
-                }
-                //if ()
-                //{
-                //    MySqlCommand command = new MySqlCommand("SELECT name,number_of_room,categories " +
-                //        "                                    FROM name_of_access_point " +
-                //        "                                    LEFT JOIN room ON name_of_access_point.idtable1 = room.idRoom " +
-                //        "                                    LEFT JOIN categories ON room.categories_idcategories = categories.idcategories" +
-                //        "                                    WHERE categories = \"" + categories.Text + "\"", connection);
+                connection.Close();
+            }
+            if ((categories.Text.Equals("Категории") && roomName.Text.Equals("")) ||
+                (categories.Text.Equals("Категории") && roomName.Text.Equals("room")))//select only kafedras
+            {
+                MySqlCommand command = new MySqlCommand("SELECT name,number_of_room,categories,number_of_cathedras,date,isProtected " +
+                    "                                    FROM name_of_access_point " +
+                    "                                    LEFT JOIN cathedras ON name_of_access_point.cathedras_idcathedras = cathedras.idcathedras " +
+                    "                                    LEFT JOIN is_protected_access_point ON name_of_access_point.is_protected_access_point_idis_protected_access_point = is_protected_access_point.idis_protected_access_point " +
+                    "                                    LEFT JOIN installation_date ON name_of_access_point.installation_date_idinstallation_date = installation_date.idinstallation_date " +
+                    "                                    LEFT JOIN room ON name_of_access_point.Room_idRoom = room.idRoom " +
+                    "                                    LEFT JOIN categories ON room.categories_idcategories = categories.idcategories" +
+                    "                                    WHERE number_of_cathedras = \"" + kafedrName.Text + "\"", connection);
 
-                //    connection.Open();
+                connection.Open();
 
-                //    MySqlDataReader reader = command.ExecuteReader();
-                //    table.Load(reader);
-                //    dbDataGrid.AutoGenerateColumns = true;
-                //    dbDataGrid.ItemsSource = table.DefaultView;
+                MySqlDataReader reader = command.ExecuteReader();
+                table.Load(reader);
+                dbDataGrid.AutoGenerateColumns = true;
+                dbDataGrid.ItemsSource = table.DefaultView;
 
-                //    connection.Close();
-                //}
+                connection.Close();
+            }
+            if (kafedrName.Text.Equals("") || kafedrName.Text.Equals("kafedras"))//select rooms and categories
+            {
+                MySqlCommand command = new MySqlCommand("SELECT name,number_of_room,categories,number_of_cathedras,date,isProtected " +
+                    "                                    FROM name_of_access_point " +
+                    "                                    LEFT JOIN cathedras ON name_of_access_point.cathedras_idcathedras = cathedras.idcathedras " +
+                    "                                    LEFT JOIN is_protected_access_point ON name_of_access_point.is_protected_access_point_idis_protected_access_point = is_protected_access_point.idis_protected_access_point " +
+                    "                                    LEFT JOIN installation_date ON name_of_access_point.installation_date_idinstallation_date = installation_date.idinstallation_date " +
+                    "                                    LEFT JOIN room ON name_of_access_point.Room_idRoom = room.idRoom " +
+                    "                                    LEFT JOIN categories ON room.categories_idcategories = categories.idcategories" +
+                    "                                    WHERE number_of_room = \"" + roomName.Text + "\" AND categories = \"" + categories.Text + "\"", connection);
+
+                connection.Open();
+
+                MySqlDataReader reader = command.ExecuteReader();
+                table.Load(reader);
+                dbDataGrid.AutoGenerateColumns = true;
+                dbDataGrid.ItemsSource = table.DefaultView;
+
+                connection.Close();
+            }
+            if (roomName.Text.Equals("") || roomName.Text.Equals("room"))//select kafedr and categories
+            {
+                MySqlCommand command = new MySqlCommand("SELECT name,number_of_room,categories,number_of_cathedras,date,isProtected " +
+                    "                                    FROM name_of_access_point " +
+                    "                                    LEFT JOIN cathedras ON name_of_access_point.cathedras_idcathedras = cathedras.idcathedras " +
+                    "                                    LEFT JOIN is_protected_access_point ON name_of_access_point.is_protected_access_point_idis_protected_access_point = is_protected_access_point.idis_protected_access_point " +
+                    "                                    LEFT JOIN installation_date ON name_of_access_point.installation_date_idinstallation_date = installation_date.idinstallation_date " +
+                    "                                    LEFT JOIN room ON name_of_access_point.Room_idRoom = room.idRoom " +
+                    "                                    LEFT JOIN categories ON room.categories_idcategories = categories.idcategories" +
+                    "                                    WHERE number_of_cathedras = \"" + kafedrName.Text + "\" AND categories = \"" + categories.Text + "\"", connection);
+
+                connection.Open();
+
+                MySqlDataReader reader = command.ExecuteReader();
+                table.Load(reader);
+                dbDataGrid.AutoGenerateColumns = true;
+                dbDataGrid.ItemsSource = table.DefaultView;
+
+                connection.Close();
+            }
+
+            else//select evrething
+            {
+                MySqlCommand command = new MySqlCommand("SELECT name,number_of_room,categories,number_of_cathedras,date,isProtected " +
+                    "                                    FROM name_of_access_point " +
+                    "                                    LEFT JOIN cathedras ON name_of_access_point.cathedras_idcathedras = cathedras.idcathedras " +
+                    "                                    LEFT JOIN is_protected_access_point ON name_of_access_point.is_protected_access_point_idis_protected_access_point = is_protected_access_point.idis_protected_access_point " +
+                    "                                    LEFT JOIN installation_date ON name_of_access_point.installation_date_idinstallation_date = installation_date.idinstallation_date " +
+                    "                                    LEFT JOIN room ON name_of_access_point.Room_idRoom = room.idRoom " +
+                    "                                    LEFT JOIN categories ON room.categories_idcategories = categories.idcategories" +
+                    "                                    WHERE number_of_cathedras = \"" + kafedrName.Text + "\" AND " +
+                    "                                          number_of_room = \"" + roomName.Text + "\"AND " +
+                    "                                          categories = \"" + categories.Text + "\" AND " +
+                    "                                          isProtected = \"" + isProtected.Text + "\" AND " +
+                    "                                          date = \"" + kalendar.SelectedDate + "\"", connection);
+
+                connection.Open();
+
+                MySqlDataReader reader = command.ExecuteReader();
+                table.Load(reader);
+                dbDataGrid.AutoGenerateColumns = true;
+                dbDataGrid.ItemsSource = table.DefaultView;
+
+                connection.Close();
             }
         }
+
 
         private void roomName_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
@@ -159,6 +161,27 @@ namespace AccessPoint
         private void kafedrName_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             kafedrName.Text = "";
+        }
+
+        private void viewButton_Click(object sender, RoutedEventArgs e)
+        {
+            viewWindow viewWin = new viewWindow();
+            viewWin.Show();
+            dbWindow.Close();
+        }
+
+        private void insertButton_Click(object sender, RoutedEventArgs e)
+        {
+            insertWindow insertWin = new insertWindow();
+            insertWin.Show();
+            dbWindow.Close();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            deleteWindow deleteWin = new deleteWindow();
+            deleteWin.Show();
+            dbWindow.Close();
         }
     }
 }
