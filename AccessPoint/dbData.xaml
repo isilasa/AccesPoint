@@ -12,16 +12,16 @@
         </Grid.RowDefinitions>
         <DataGrid x:Name="dbDataGrid"  Margin="10,31.8,9.6,60" Grid.Row="1"  />
         <Button x:Name="buttonSelect" Content="Select"  Margin="0,0,19.6,10" Click="buttonSelect_Click" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="174" Grid.Row="1" />
-        <ComboBox x:Name="categories" SelectedIndex="0" Margin="10,10,0,0" FontSize="14" Height="35" VerticalAlignment="Top" HorizontalAlignment="Left" Width="150" Grid.RowSpan="2" >
+        <ComboBox x:Name="categoriesComboBox" SelectedIndex="0" Margin="10,10,0,0" FontSize="14" Height="35" VerticalAlignment="Top" HorizontalAlignment="Left" Width="150" Grid.RowSpan="2" >
             <TextBlock>Категории</TextBlock>
             <TextBlock>Некатегорированное</TextBlock>
             <TextBlock>ДСП</TextBlock>
             <TextBlock>Секретно</TextBlock>
             <TextBlock>Сов.Секретно</TextBlock>
         </ComboBox>
-        <TextBox x:Name="roomName" Margin="165,10,0,0" Padding="30,5" TextWrapping="Wrap" Text="room" FontSize="14" Height="35" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100" PreviewMouseLeftButtonDown="roomName_PreviewMouseLeftButtonDown" Grid.RowSpan="2"/>
-        <TextBox x:Name="kafedrName" Text="kafedras" Margin="270,10,0,0" Padding="21,5" TextWrapping="Wrap"  FontSize="14" Height="35" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100" PreviewMouseLeftButtonDown="kafedrName_PreviewMouseLeftButtonDown" Grid.RowSpan="2"/>
-        <ComboBox x:Name="isProtected" SelectedIndex="0" Margin="375,10,0,0" FontSize="14" HorizontalAlignment="Left" Width="150" Grid.RowSpan="2" Height="35" VerticalAlignment="Top"  >
+        <TextBox x:Name="roomNameText" Margin="165,10,0,0" Padding="30,5" TextWrapping="Wrap" Text="room" FontSize="14" Height="35" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100" PreviewMouseLeftButtonDown="roomName_PreviewMouseLeftButtonDown" Grid.RowSpan="2"/>
+        <TextBox x:Name="kafedrNameText" Text="kafedras" Margin="270,10,0,0" Padding="21,5" TextWrapping="Wrap"  FontSize="14" Height="35" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100" PreviewMouseLeftButtonDown="kafedrName_PreviewMouseLeftButtonDown" Grid.RowSpan="2"/>
+        <ComboBox x:Name="isProtectedComboBox" SelectedIndex="0" Margin="375,10,0,0" FontSize="14" HorizontalAlignment="Left" Width="150" Grid.RowSpan="2" Height="35" VerticalAlignment="Top"  >
             <TextBlock>Защищённость</TextBlock>
             <TextBlock>1</TextBlock>
             <TextBlock>0</TextBlock>
@@ -29,6 +29,6 @@
         <Button x:Name="viewButton" Content="View" Margin="10,0,0,10" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="94" Click="viewButton_Click" Grid.Row="1" />
         <Button x:Name="insertButton" Content="Insert" Margin="109,0,0,10" VerticalAlignment="Bottom" Height="30" HorizontalAlignment="Left" Width="94" Click="insertButton_Click" Grid.Row="1"/>
         <Button Content="Delete" HorizontalAlignment="Left" Margin="208,0,0,10" Width="94" Height="30" RenderTransformOrigin="0.535,1.703" VerticalAlignment="Bottom" Click="Button_Click" Grid.Row="1"/>
-        <DatePicker x:Name="kalendar" HorizontalAlignment="Left" Margin="530,10,0,0" VerticalAlignment="Top" Height="35" Grid.RowSpan="2"/>
+        <DatePicker x:Name= "kalendarDatePicker" Margin="530,10,0,0" Grid.RowSpan="2" HorizontalAlignment="Left" Width="108" Height="35" VerticalAlignment="Top"/>
     </Grid>
 </Window>

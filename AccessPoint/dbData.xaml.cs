@@ -17,13 +17,14 @@ namespace AccessPoint
         }
         private void buttonSelect_Click(object sender, RoutedEventArgs e)
         {
-            MySqlConnection connection = new MySqlConnection("server = localhost;port = 3306; username = root; password = 1123581321Bkmz ; database = accesspoint");
+            MySqlConnection connection = new MySqlConnection("server = localhost;port = 3306; username = root; password = Ghjcnjgfhjkm ; database = accesspoint");
             DataTable table = new DataTable();
 
-            if ((roomName.Text.Equals("") && kafedrName.Text.Equals("")) ||
-                (roomName.Text.Equals("room") && kafedrName.Text.Equals("kafedras")) ||
-                (roomName.Text.Equals("room") && kafedrName.Text.Equals("")) ||
-                (roomName.Text.Equals("") && kafedrName.Text.Equals("kafedras")))// select onlu categories
+            // select only categories
+            if ((roomNameText.Text.Equals("") && kafedrNameText.Text.Equals("") && isProtectedComboBox.Text.Equals("Защищённость") && kalendarDatePicker.SelectedDate == null) ||
+                (roomNameText.Text.Equals("room") && kafedrNameText.Text.Equals("kafedras") && isProtectedComboBox.Text.Equals("Защищённость") && kalendarDatePicker.SelectedDate == null) ||
+                (roomNameText.Text.Equals("room") && kafedrNameText.Text.Equals("") && isProtectedComboBox.Text.Equals("Защищённость") && kalendarDatePicker.SelectedDate == null) ||
+                (roomNameText.Text.Equals("") && kafedrNameText.Text.Equals("kafedras") && isProtectedComboBox.Text.Equals("Защищённость") && kalendarDatePicker.SelectedDate == null))
             {
                 MySqlCommand command = new MySqlCommand("SELECT name,number_of_room,categories,number_of_cathedras,date,isProtected " +
                     "                                    FROM name_of_access_point " +
@@ -32,7 +33,7 @@ namespace AccessPoint
                     "                                    LEFT JOIN installation_date ON name_of_access_point.installation_date_idinstallation_date = installation_date.idinstallation_date " +
                     "                                    LEFT JOIN room ON name_of_access_point.Room_idRoom = room.idRoom " +
                     "                                    LEFT JOIN categories ON room.categories_idcategories = categories.idcategories" +
-                "                                    WHERE categories = \"" + categories.Text + "\"", connection);
+                "                                    WHERE categories = \"" + categoriesComboBox.Text + "\"", connection);
 
                 connection.Open();
 
@@ -43,8 +44,9 @@ namespace AccessPoint
 
                 connection.Close();
             }
-            if ((categories.Text.Equals("Категории") && kafedrName.Text.Equals("")) || 
-                (categories.Text.Equals("Категории") && kafedrName.Text.Equals("kafedras")))//select only rooms
+            //select only rooms
+            if ((categoriesComboBox.Text.Equals("Категории") && kafedrNameText.Text.Equals("") && isProtectedComboBox.Text.Equals("Защищённость") && kalendarDatePicker.SelectedDate == null) || 
+                (categoriesComboBox.Text.Equals("Категории") && kafedrNameText.Text.Equals("kafedras") && isProtectedComboBox.Text.Equals("Защищённость") && kalendarDatePicker.SelectedDate == null))
             {
                 MySqlCommand command = new MySqlCommand("SELECT name,number_of_room,categories,number_of_cathedras,date,isProtected " +
                     "                                    FROM name_of_access_point " +
@@ -53,7 +55,7 @@ namespace AccessPoint
                     "                                    LEFT JOIN installation_date ON name_of_access_point.installation_date_idinstallation_date = installation_date.idinstallation_date " +
                     "                                    LEFT JOIN room ON name_of_access_point.Room_idRoom = room.idRoom " +
                     "                                    LEFT JOIN categories ON room.categories_idcategories = categories.idcategories" +
-                    "                                    WHERE number_of_room = \"" + roomName.Text + "\"", connection);
+                    "                                    WHERE number_of_room = \"" + roomNameText.Text + "\"", connection);
 
                 connection.Open();
 
@@ -64,8 +66,9 @@ namespace AccessPoint
 
                 connection.Close();
             }
-            if ((categories.Text.Equals("Категории") && roomName.Text.Equals("")) ||
-                (categories.Text.Equals("Категории") && roomName.Text.Equals("room")))//select only kafedras
+            //select only kafedras
+            if ((categoriesComboBox.Text.Equals("Категории") && roomNameText.Text.Equals("") && isProtectedComboBox.Text.Equals("Защищённость") && kalendarDatePicker.SelectedDate == null) ||
+                (categoriesComboBox.Text.Equals("Категории") && roomNameText.Text.Equals("room") && isProtectedComboBox.Text.Equals("Защищённость") && kalendarDatePicker.SelectedDate == null))
             {
                 MySqlCommand command = new MySqlCommand("SELECT name,number_of_room,categories,number_of_cathedras,date,isProtected " +
                     "                                    FROM name_of_access_point " +
@@ -74,7 +77,7 @@ namespace AccessPoint
                     "                                    LEFT JOIN installation_date ON name_of_access_point.installation_date_idinstallation_date = installation_date.idinstallation_date " +
                     "                                    LEFT JOIN room ON name_of_access_point.Room_idRoom = room.idRoom " +
                     "                                    LEFT JOIN categories ON room.categories_idcategories = categories.idcategories" +
-                    "                                    WHERE number_of_cathedras = \"" + kafedrName.Text + "\"", connection);
+                    "                                    WHERE number_of_cathedras = \"" + kafedrNameText.Text + "\"", connection);
 
                 connection.Open();
 
@@ -85,7 +88,9 @@ namespace AccessPoint
 
                 connection.Close();
             }
-            if (kafedrName.Text.Equals("") || kafedrName.Text.Equals("kafedras"))//select rooms and categories
+            //select only protected
+            if ((categoriesComboBox.Text.Equals("Категории") && roomNameText.Text.Equals("") && kafedrNameText.Text.Equals("") && kalendarDatePicker.SelectedDate == null) ||
+                (categoriesComboBox.Text.Equals("Категории") && roomNameText.Text.Equals("room") && kafedrNameText.Text.Equals("kafedras") && kalendarDatePicker.SelectedDate == null))
             {
                 MySqlCommand command = new MySqlCommand("SELECT name,number_of_room,categories,number_of_cathedras,date,isProtected " +
                     "                                    FROM name_of_access_point " +
@@ -94,7 +99,7 @@ namespace AccessPoint
                     "                                    LEFT JOIN installation_date ON name_of_access_point.installation_date_idinstallation_date = installation_date.idinstallation_date " +
                     "                                    LEFT JOIN room ON name_of_access_point.Room_idRoom = room.idRoom " +
                     "                                    LEFT JOIN categories ON room.categories_idcategories = categories.idcategories" +
-                    "                                    WHERE number_of_room = \"" + roomName.Text + "\" AND categories = \"" + categories.Text + "\"", connection);
+                    "                                    WHERE isProtected = \"" + isProtectedComboBox.Text + "\"", connection);
 
                 connection.Open();
 
@@ -105,7 +110,10 @@ namespace AccessPoint
 
                 connection.Close();
             }
-            if (roomName.Text.Equals("") || roomName.Text.Equals("room"))//select kafedr and categories
+
+            //select only date
+            if ((categoriesComboBox.Text.Equals("Категории") && roomNameText.Text.Equals("") && kafedrNameText.Text.Equals("") && isProtectedComboBox.Text.Equals("Защищённость")) ||
+                (categoriesComboBox.Text.Equals("Категории") && roomNameText.Text.Equals("room") && kafedrNameText.Text.Equals("kafedras") && isProtectedComboBox.Text.Equals("Защищённость")))
             {
                 MySqlCommand command = new MySqlCommand("SELECT name,number_of_room,categories,number_of_cathedras,date,isProtected " +
                     "                                    FROM name_of_access_point " +
@@ -114,7 +122,51 @@ namespace AccessPoint
                     "                                    LEFT JOIN installation_date ON name_of_access_point.installation_date_idinstallation_date = installation_date.idinstallation_date " +
                     "                                    LEFT JOIN room ON name_of_access_point.Room_idRoom = room.idRoom " +
                     "                                    LEFT JOIN categories ON room.categories_idcategories = categories.idcategories" +
-                    "                                    WHERE number_of_cathedras = \"" + kafedrName.Text + "\" AND categories = \"" + categories.Text + "\"", connection);
+                    "                                    WHERE isProtected = \"" + kalendarDatePicker.SelectedDate.Value.ToString("yyyy-MM-dd") + "\"", connection);
+
+                connection.Open();
+
+                MySqlDataReader reader = command.ExecuteReader();
+                table.Load(reader);
+                dbDataGrid.AutoGenerateColumns = true;
+                dbDataGrid.ItemsSource = table.DefaultView;
+
+                connection.Close();
+            }
+
+
+            //select rooms and categories
+            if (kafedrNameText.Text.Equals("") || kafedrNameText.Text.Equals("kafedras"))
+            {
+                MySqlCommand command = new MySqlCommand("SELECT name,number_of_room,categories,number_of_cathedras,date,isProtected " +
+                    "                                    FROM name_of_access_point " +
+                    "                                    LEFT JOIN cathedras ON name_of_access_point.cathedras_idcathedras = cathedras.idcathedras " +
+                    "                                    LEFT JOIN is_protected_access_point ON name_of_access_point.is_protected_access_point_idis_protected_access_point = is_protected_access_point.idis_protected_access_point " +
+                    "                                    LEFT JOIN installation_date ON name_of_access_point.installation_date_idinstallation_date = installation_date.idinstallation_date " +
+                    "                                    LEFT JOIN room ON name_of_access_point.Room_idRoom = room.idRoom " +
+                    "                                    LEFT JOIN categories ON room.categories_idcategories = categories.idcategories" +
+                    "                                    WHERE number_of_room = \"" + roomNameText.Text + "\" AND categories = \"" + categoriesComboBox.Text + "\"", connection);
+
+                connection.Open();
+
+                MySqlDataReader reader = command.ExecuteReader();
+                table.Load(reader);
+                dbDataGrid.AutoGenerateColumns = true;
+                dbDataGrid.ItemsSource = table.DefaultView;
+
+                connection.Close();
+            }
+            //select kafedr and categories
+            if (roomNameText.Text.Equals("") || roomNameText.Text.Equals("room"))
+            {
+                MySqlCommand command = new MySqlCommand("SELECT name,number_of_room,categories,number_of_cathedras,date,isProtected " +
+                    "                                    FROM name_of_access_point " +
+                    "                                    LEFT JOIN cathedras ON name_of_access_point.cathedras_idcathedras = cathedras.idcathedras " +
+                    "                                    LEFT JOIN is_protected_access_point ON name_of_access_point.is_protected_access_point_idis_protected_access_point = is_protected_access_point.idis_protected_access_point " +
+                    "                                    LEFT JOIN installation_date ON name_of_access_point.installation_date_idinstallation_date = installation_date.idinstallation_date " +
+                    "                                    LEFT JOIN room ON name_of_access_point.Room_idRoom = room.idRoom " +
+                    "                                    LEFT JOIN categories ON room.categories_idcategories = categories.idcategories" +
+                    "                                    WHERE number_of_cathedras = \"" + kafedrNameText.Text + "\" AND categories = \"" + categoriesComboBox.Text + "\"", connection);
 
                 connection.Open();
 
@@ -135,11 +187,11 @@ namespace AccessPoint
                     "                                    LEFT JOIN installation_date ON name_of_access_point.installation_date_idinstallation_date = installation_date.idinstallation_date " +
                     "                                    LEFT JOIN room ON name_of_access_point.Room_idRoom = room.idRoom " +
                     "                                    LEFT JOIN categories ON room.categories_idcategories = categories.idcategories" +
-                    "                                    WHERE number_of_cathedras = \"" + kafedrName.Text + "\" AND " +
-                    "                                          number_of_room = \"" + roomName.Text + "\"AND " +
-                    "                                          categories = \"" + categories.Text + "\" AND " +
-                    "                                          isProtected = \"" + isProtected.Text + "\" AND " +
-                    "                                          date = \"" + kalendar.SelectedDate + "\"", connection);
+                    "                                    WHERE number_of_cathedras = \"" + kafedrNameText.Text + "\" AND " +
+                    "                                          number_of_room = \"" + roomNameText.Text + "\"AND " +
+                    "                                          categories = \"" + categoriesComboBox.Text + "\" AND " +
+                    "                                          isProtected = \"" + isProtectedComboBox.Text + "\" AND " +
+                    "                                          date = \"" + kalendarDatePicker.SelectedDate.Value.ToString("yyyy-MM-dd") + "\"", connection);
 
                 connection.Open();
 
@@ -155,12 +207,12 @@ namespace AccessPoint
 
         private void roomName_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            roomName.Text = "";
+            roomNameText.Text = "";
         }
 
         private void kafedrName_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            kafedrName.Text = "";
+            kafedrNameText.Text = "";
         }
 
         private void viewButton_Click(object sender, RoutedEventArgs e)
@@ -182,6 +234,11 @@ namespace AccessPoint
             deleteWindow deleteWin = new deleteWindow();
             deleteWin.Show();
             dbWindow.Close();
+        }
+
+        private void kalendar_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            kalendarDatePicker.Text = "";
         }
     }
 }
