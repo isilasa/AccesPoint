@@ -49,7 +49,7 @@ namespace AccessPoint
 
                 connection.Close();
             }
-            if (tableBox.Text == "Название Абонентского пункта")
+            if (tableBox.Text == "Название абонентского пункта")
             {
                 MySqlCommand command = new MySqlCommand("SELECT name,number_of_room,categories,number_of_cathedras,date,isProtected " +
                     "                                    FROM name_of_access_point " +
