@@ -10,6 +10,12 @@ namespace AccessPoint
     /// </summary>
     public partial class viewWindow : Window
     {
+        private string pass;
+        public string Pass
+        {
+            get { return pass; }
+            set { pass = value; }
+        }
         public viewWindow()
         {
             InitializeComponent();
@@ -18,7 +24,7 @@ namespace AccessPoint
 
         private void viewButton_Click(object sender, RoutedEventArgs e)
         {
-            MySqlConnection connection = new MySqlConnection("server = localhost;port = 3306; username = root; password = Ghjcnjgfhjkm ; database = accesspoint");
+            MySqlConnection connection = new MySqlConnection("server = localhost;port = 3306; username = root; password =" + pass + "; database = accesspoint");
             DataTable table = new DataTable();
 
             if (tableBox.Text == "Кабинеты")

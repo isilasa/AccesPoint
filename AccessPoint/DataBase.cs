@@ -3,11 +3,10 @@
 
 namespace AccessPoint
 {
-    class DataBase
+    static class DataBase
     {
-
-        MySqlConnection connection = new MySqlConnection("server = localhost;port = 3306; username = root; password = ; database = users");
-        public void OpenConnection()
+        public static MySqlConnection connection = new MySqlConnection("server = localhost;port = 3306; username = root; password = Ghjcnjgfhjkm; database = users");
+        public static void OpenConnection()
         {
             if (connection.State == System.Data.ConnectionState.Closed)
             {
@@ -15,7 +14,7 @@ namespace AccessPoint
             }
         }
 
-        public void CloseConnection()
+        public static void CloseConnection()
         {
             if (connection.State == System.Data.ConnectionState.Open)
             {
@@ -23,7 +22,7 @@ namespace AccessPoint
             }
         }
 
-        public MySqlConnection GetConnection()
+        public static MySqlConnection GetConnection()
         {
             return connection;
         }
