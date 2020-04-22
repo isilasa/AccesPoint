@@ -58,7 +58,7 @@ namespace AccessPoint
                 {
                     
                     dbData dbWindow = new dbData();
-                    dbWindow.Pass = passwordText.Password;
+                    GivePass.Pass = passwordText.Password;
                     dbWindow.Show();
                     authorizationWindow.Close();
 

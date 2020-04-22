@@ -8,14 +8,9 @@ namespace AccessPoint
     /// <summary>
     /// Логика взаимодействия для dbData.xaml
     /// </summary>
+    
     public partial class dbData : Window
     {
-        private string pass;
-        public string Pass
-        {
-            get { return pass; }
-            set { pass = value; }
-        }
         public dbData()
         {
             InitializeComponent();
@@ -24,8 +19,9 @@ namespace AccessPoint
         private void buttonSelect_Click(object sender, RoutedEventArgs e)
         {
 
-            MySqlConnection connection = new MySqlConnection("server = localhost;port = 3306; username = root; password = " + pass + "; database = accesspoint");
+            MySqlConnection connection = new MySqlConnection("server = localhost;port = 3306; username = root; password = " + GivePass.Pass + "; database = accesspoint");
             DataTable table = new DataTable();
+            connection.Open();
 
             // select only categories
             if ((categoriesComboBox.Text != "Категории" && roomNameText.Text.Equals("") && kafedrNameText.Text.Equals("") && isProtectedComboBox.Text.Equals("Защищённость") && kalendarDatePicker.SelectedDate == null) ||
@@ -42,14 +38,14 @@ namespace AccessPoint
                     "                                    LEFT JOIN categories ON room.categories_idcategories = categories.idcategories" +
                     "                                    WHERE categories = \"" + categoriesComboBox.Text + "\"", connection);
 
-                connection.Open();
+                
 
                 MySqlDataReader reader = command.ExecuteReader();
                 table.Load(reader);
                 dbDataGrid.AutoGenerateColumns = true;
                 dbDataGrid.ItemsSource = table.DefaultView;
 
-                connection.Close();
+                
             }
             //select only rooms
             if ((categoriesComboBox.Text.Equals("Категории") && roomNameText.Text != "room" &&  kafedrNameText.Text.Equals("") && isProtectedComboBox.Text.Equals("Защищённость") && kalendarDatePicker.SelectedDate == null) ||
@@ -66,14 +62,14 @@ namespace AccessPoint
                     "                                    LEFT JOIN categories ON room.categories_idcategories = categories.idcategories" +
                     "                                    WHERE number_of_room = \"" + roomNameText.Text + "\"", connection);
 
-                connection.Open();
+                
 
                 MySqlDataReader reader = command.ExecuteReader();
                 table.Load(reader);
                 dbDataGrid.AutoGenerateColumns = true;
                 dbDataGrid.ItemsSource = table.DefaultView;
 
-                connection.Close();
+                
             }
             //select only kafedras
             if ((categoriesComboBox.Text.Equals("Категории") && roomNameText.Text.Equals("") && kafedrNameText.Text != "" && isProtectedComboBox.Text.Equals("Защищённость") && kalendarDatePicker.SelectedDate == null) ||
@@ -90,14 +86,14 @@ namespace AccessPoint
                     "                                    LEFT JOIN categories ON room.categories_idcategories = categories.idcategories" +
                     "                                    WHERE number_of_cathedras = \"" + kafedrNameText.Text + "\"", connection);
 
-                connection.Open();
+                
 
                 MySqlDataReader reader = command.ExecuteReader();
                 table.Load(reader);
                 dbDataGrid.AutoGenerateColumns = true;
                 dbDataGrid.ItemsSource = table.DefaultView;
 
-                connection.Close();
+               
             }
             //select only protected
             if ((categoriesComboBox.Text.Equals("Категории") && roomNameText.Text.Equals("") && kafedrNameText.Text.Equals("") && isProtectedComboBox.Text != "Защищённость" && kalendarDatePicker.SelectedDate == null) ||
@@ -114,14 +110,14 @@ namespace AccessPoint
                     "                                    LEFT JOIN categories ON room.categories_idcategories = categories.idcategories" +
                     "                                    WHERE isProtected = \"" + isProtectedComboBox.Text + "\"", connection);
 
-                connection.Open();
+                
 
                 MySqlDataReader reader = command.ExecuteReader();
                 table.Load(reader);
                 dbDataGrid.AutoGenerateColumns = true;
                 dbDataGrid.ItemsSource = table.DefaultView;
 
-                connection.Close();
+                
             }
 
             //select only date
@@ -139,14 +135,14 @@ namespace AccessPoint
                     "                                    LEFT JOIN categories ON room.categories_idcategories = categories.idcategories" +
                     "                                    WHERE isProtected = \"" + kalendarDatePicker.SelectedDate.Value.ToString("yyyy-MM-dd") + "\"", connection);
 
-                connection.Open();
+               
 
                 MySqlDataReader reader = command.ExecuteReader();
                 table.Load(reader);
                 dbDataGrid.AutoGenerateColumns = true;
                 dbDataGrid.ItemsSource = table.DefaultView;
 
-                connection.Close();
+              
             }
 
 
@@ -165,14 +161,14 @@ namespace AccessPoint
                     "                                    LEFT JOIN categories ON room.categories_idcategories = categories.idcategories" +
                     "                                    WHERE number_of_room = \"" + roomNameText.Text + "\" AND categories = \"" + categoriesComboBox.Text + "\"", connection);
 
-                connection.Open();
+                
 
                 MySqlDataReader reader = command.ExecuteReader();
                 table.Load(reader);
                 dbDataGrid.AutoGenerateColumns = true;
                 dbDataGrid.ItemsSource = table.DefaultView;
 
-                connection.Close();
+                
             }
             //select cathedras and categories
             if ((categoriesComboBox.Text != "Категории" && roomNameText.Text.Equals("room") && kafedrNameText.Text != "" && isProtectedComboBox.Text.Equals("Защищённость") && kalendarDatePicker.SelectedDate == null) ||
@@ -189,14 +185,14 @@ namespace AccessPoint
                     "                                    LEFT JOIN categories ON room.categories_idcategories = categories.idcategories" +
                     "                                    WHERE number_of_cathedras = \"" + kafedrNameText.Text + "\" AND categories = \"" + categoriesComboBox.Text + "\"", connection);
 
-                connection.Open();
+                
 
                 MySqlDataReader reader = command.ExecuteReader();
                 table.Load(reader);
                 dbDataGrid.AutoGenerateColumns = true;
                 dbDataGrid.ItemsSource = table.DefaultView;
 
-                connection.Close();
+                
             }
             //select isProtected and categories
             if ((categoriesComboBox.Text != "Категории" && roomNameText.Text.Equals("room") && kafedrNameText.Text.Equals("") && isProtectedComboBox.Text != "Защищённость" && kalendarDatePicker.SelectedDate == null) ||
@@ -213,14 +209,14 @@ namespace AccessPoint
                     "                                    LEFT JOIN categories ON room.categories_idcategories = categories.idcategories" +
                     "                                    WHERE isProtected = \"" + isProtectedComboBox.Text + "\" AND categories = \"" + categoriesComboBox.Text + "\"", connection);
 
-                connection.Open();
+                
 
                 MySqlDataReader reader = command.ExecuteReader();
                 table.Load(reader);
                 dbDataGrid.AutoGenerateColumns = true;
                 dbDataGrid.ItemsSource = table.DefaultView;
 
-                connection.Close();
+                
             }
 
             //select date and categories
@@ -238,14 +234,14 @@ namespace AccessPoint
                     "                                    LEFT JOIN categories ON room.categories_idcategories = categories.idcategories" +
                     "                                    WHERE date = \"" + kalendarDatePicker.SelectedDate.Value.ToString("yyyy-MM-dd") + "\" AND categories = \"" + categoriesComboBox.Text + "\"", connection);
 
-                connection.Open();
+                
 
                 MySqlDataReader reader = command.ExecuteReader();
                 table.Load(reader);
                 dbDataGrid.AutoGenerateColumns = true;
                 dbDataGrid.ItemsSource = table.DefaultView;
 
-                connection.Close();
+               
             }
 
             //select room and cathedras
@@ -263,14 +259,12 @@ namespace AccessPoint
                     "                                    LEFT JOIN categories ON room.categories_idcategories = categories.idcategories" +
                     "                                    WHERE number_of_room = \"" + roomNameText.Text + "\" AND number_of_cathedras = \"" + kafedrNameText.Text + "\"", connection);
 
-                connection.Open();
 
                 MySqlDataReader reader = command.ExecuteReader();
                 table.Load(reader);
                 dbDataGrid.AutoGenerateColumns = true;
                 dbDataGrid.ItemsSource = table.DefaultView;
 
-                connection.Close();
             }
 
             //select room and isProtected
@@ -288,14 +282,12 @@ namespace AccessPoint
                     "                                    LEFT JOIN categories ON room.categories_idcategories = categories.idcategories" +
                     "                                    WHERE number_of_room = \"" + roomNameText.Text + "\" AND isProtected = \"" + isProtectedComboBox.Text + "\"", connection);
 
-                connection.Open();
 
                 MySqlDataReader reader = command.ExecuteReader();
                 table.Load(reader);
                 dbDataGrid.AutoGenerateColumns = true;
                 dbDataGrid.ItemsSource = table.DefaultView;
 
-                connection.Close();
             }
 
             //select room and date
@@ -313,14 +305,12 @@ namespace AccessPoint
                     "                                    LEFT JOIN categories ON room.categories_idcategories = categories.idcategories" +
                     "                                    WHERE number_of_room = \"" + roomNameText.Text + "\" AND date = \"" + kalendarDatePicker.SelectedDate.Value.ToString("yyyy-MM-dd") + "\"", connection);
 
-                connection.Open();
 
                 MySqlDataReader reader = command.ExecuteReader();
                 table.Load(reader);
                 dbDataGrid.AutoGenerateColumns = true;
                 dbDataGrid.ItemsSource = table.DefaultView;
 
-                connection.Close();
             }
 
             //select cathedra and isProtected
@@ -338,14 +328,12 @@ namespace AccessPoint
                     "                                    LEFT JOIN categories ON room.categories_idcategories = categories.idcategories" +
                     "                                    WHERE number_of_cathedras = \"" + kafedrNameText.Text + "\" AND isProtected = \"" + isProtectedComboBox.Text + "\"", connection);
 
-                connection.Open();
 
                 MySqlDataReader reader = command.ExecuteReader();
                 table.Load(reader);
                 dbDataGrid.AutoGenerateColumns = true;
                 dbDataGrid.ItemsSource = table.DefaultView;
 
-                connection.Close();
             }
 
             //select cathedra and date
@@ -363,14 +351,12 @@ namespace AccessPoint
                     "                                    LEFT JOIN categories ON room.categories_idcategories = categories.idcategories" +
                     "                                    WHERE number_of_cathedras = \"" + kafedrNameText.Text + "\" AND date = \"" + kalendarDatePicker.SelectedDate.Value.ToString("yyyy-MM-dd") + "\"", connection);
 
-                connection.Open();
 
                 MySqlDataReader reader = command.ExecuteReader();
                 table.Load(reader);
                 dbDataGrid.AutoGenerateColumns = true;
                 dbDataGrid.ItemsSource = table.DefaultView;
 
-                connection.Close();
             }
 
             //select isProtected and date
@@ -388,14 +374,11 @@ namespace AccessPoint
                     "                                    LEFT JOIN categories ON room.categories_idcategories = categories.idcategories" +
                     "                                    WHERE isProtected = \"" + isProtectedComboBox.Text + "\" AND date = \"" + kalendarDatePicker.SelectedDate.Value.ToString("yyyy-MM-dd") + "\"", connection);
 
-                connection.Open();
-
                 MySqlDataReader reader = command.ExecuteReader();
                 table.Load(reader);
                 dbDataGrid.AutoGenerateColumns = true;
                 dbDataGrid.ItemsSource = table.DefaultView;
 
-                connection.Close();
             }
             //select categories, room and cafedras
             if ((categoriesComboBox.Text != "Категории" && roomNameText.Text != "room" && kafedrNameText.Text != "" && isProtectedComboBox.Text.Equals("Защищённость") && kalendarDatePicker.SelectedDate == null) ||
@@ -414,14 +397,12 @@ namespace AccessPoint
                     "                                          number_of_room = \"" + roomNameText.Text + "\"AND " +
                     "                                          number_of_cathedras = \"" + kafedrNameText.Text + "\"" ,connection);
 
-                connection.Open();
 
                 MySqlDataReader reader = command.ExecuteReader();
                 table.Load(reader);
                 dbDataGrid.AutoGenerateColumns = true;
                 dbDataGrid.ItemsSource = table.DefaultView;
 
-                connection.Close();
             }
             //select categories, room and isProtected
             if ((categoriesComboBox.Text != "Категории" && roomNameText.Text != "room" && kafedrNameText.Text.Equals("") && isProtectedComboBox.Text != "Защищённость" && kalendarDatePicker.SelectedDate == null) ||
@@ -440,14 +421,12 @@ namespace AccessPoint
                     "                                          number_of_room = \"" + roomNameText.Text + "\"AND " +
                     "                                          isProtected = \"" + isProtectedComboBox.Text + "\"", connection);
 
-                connection.Open();
 
                 MySqlDataReader reader = command.ExecuteReader();
                 table.Load(reader);
                 dbDataGrid.AutoGenerateColumns = true;
                 dbDataGrid.ItemsSource = table.DefaultView;
 
-                connection.Close();
             }
             //select categories room, date
             if ((categoriesComboBox.Text != "Категории" && roomNameText.Text != "room" && kafedrNameText.Text.Equals("") && isProtectedComboBox.Text.Equals("Защищённость") && kalendarDatePicker.SelectedDate != null) ||
@@ -466,14 +445,12 @@ namespace AccessPoint
                     "                                          number_of_room = \"" + roomNameText.Text + "\"AND " +
                     "                                          date = \"" + kalendarDatePicker.SelectedDate.Value.ToString("yyyy-MM-dd") + "\"", connection);
 
-                connection.Open();
 
                 MySqlDataReader reader = command.ExecuteReader();
                 table.Load(reader);
                 dbDataGrid.AutoGenerateColumns = true;
                 dbDataGrid.ItemsSource = table.DefaultView;
 
-                connection.Close();
             }
             //select categories cathedras, isProtected
             if ((categoriesComboBox.Text != "Категории" && roomNameText.Text.Equals("room") && kafedrNameText.Text != "" && isProtectedComboBox.Text != "Защищённость" && kalendarDatePicker.SelectedDate != null) ||
@@ -492,14 +469,12 @@ namespace AccessPoint
                     "                                          number_of_cathedras = \"" + kafedrNameText.Text + "\"AND " +
                     "                                          isProtected = \"" + isProtectedComboBox.Text + "\"", connection);
 
-                connection.Open();
 
                 MySqlDataReader reader = command.ExecuteReader();
                 table.Load(reader);
                 dbDataGrid.AutoGenerateColumns = true;
                 dbDataGrid.ItemsSource = table.DefaultView;
 
-                connection.Close();
             }
 
             //select categories cathedras, date
@@ -519,14 +494,12 @@ namespace AccessPoint
                     "                                          number_of_cathedras = \"" + kafedrNameText.Text + "\"AND " +
                     "                                          date = \"" + kalendarDatePicker.SelectedDate.Value.ToString("yyyy-MM-dd") + "\"", connection);
 
-                connection.Open();
 
                 MySqlDataReader reader = command.ExecuteReader();
                 table.Load(reader);
                 dbDataGrid.AutoGenerateColumns = true;
                 dbDataGrid.ItemsSource = table.DefaultView;
 
-                connection.Close();
             }
 
             //select categories isProtected, date
@@ -546,14 +519,12 @@ namespace AccessPoint
                     "                                          number_of_cathedras = \"" + kafedrNameText.Text + "\"AND " +
                     "                                          date = \"" + kalendarDatePicker.SelectedDate.Value.ToString("yyyy-MM-dd") + "\"", connection);
 
-                connection.Open();
 
                 MySqlDataReader reader = command.ExecuteReader();
                 table.Load(reader);
                 dbDataGrid.AutoGenerateColumns = true;
                 dbDataGrid.ItemsSource = table.DefaultView;
 
-                connection.Close();
             }
 
             //select room, cathedras,isProtected
@@ -573,14 +544,12 @@ namespace AccessPoint
                     "                                          number_of_cathedras = \"" + kafedrNameText.Text + "\"AND " +
                     "                                          isProtected = \"" + isProtectedComboBox.Text + "\"", connection);
 
-                connection.Open();
 
                 MySqlDataReader reader = command.ExecuteReader();
                 table.Load(reader);
                 dbDataGrid.AutoGenerateColumns = true;
                 dbDataGrid.ItemsSource = table.DefaultView;
 
-                connection.Close();
             }
 
             //select room, cathedras,date
@@ -600,14 +569,12 @@ namespace AccessPoint
                     "                                          number_of_cathedras = \"" + kafedrNameText.Text + "\"AND " +
                     "                                          date = \"" + kalendarDatePicker.SelectedDate.Value.ToString("yyyy-MM-dd") + "\"", connection);
 
-                connection.Open();
 
                 MySqlDataReader reader = command.ExecuteReader();
                 table.Load(reader);
                 dbDataGrid.AutoGenerateColumns = true;
                 dbDataGrid.ItemsSource = table.DefaultView;
 
-                connection.Close();
             }
             //select room, isProtected,date
             if ((categoriesComboBox.Text.Equals("Категории") && roomNameText.Text != "room" && kafedrNameText.Text.Equals("") && isProtectedComboBox.Text != "Защищённость" && kalendarDatePicker.SelectedDate != null) ||
@@ -626,14 +593,12 @@ namespace AccessPoint
                     "                                          isProtected = \"" + isProtectedComboBox.Text + "\"AND " +
                     "                                          date = \"" + kalendarDatePicker.SelectedDate.Value.ToString("yyyy-MM-dd") + "\"", connection);
 
-                connection.Open();
 
                 MySqlDataReader reader = command.ExecuteReader();
                 table.Load(reader);
                 dbDataGrid.AutoGenerateColumns = true;
                 dbDataGrid.ItemsSource = table.DefaultView;
 
-                connection.Close();
             }
 
             //select cathedras,isProtected,date
@@ -653,14 +618,12 @@ namespace AccessPoint
                     "                                          isProtected = \"" + isProtectedComboBox.Text + "\"AND " +
                     "                                          date = \"" + kalendarDatePicker.SelectedDate.Value.ToString("yyyy-MM-dd") + "\"", connection);
 
-                connection.Open();
 
                 MySqlDataReader reader = command.ExecuteReader();
                 table.Load(reader);
                 dbDataGrid.AutoGenerateColumns = true;
                 dbDataGrid.ItemsSource = table.DefaultView;
 
-                connection.Close();
             }
             //select kategories, room, kafedras,isProtected
             if ((categoriesComboBox.Text != "Категории" && roomNameText.Text != "room" && kafedrNameText.Text != "" && isProtectedComboBox.Text != "Защищённость" && kalendarDatePicker.SelectedDate == null) ||
@@ -680,14 +643,12 @@ namespace AccessPoint
                     "                                          categories = \"" + categoriesComboBox.Text + "\" AND " +
                     "                                          isProtected = \"" + isProtectedComboBox.Text + "\"", connection);
 
-                connection.Open();
 
                 MySqlDataReader reader = command.ExecuteReader();
                 table.Load(reader);
                 dbDataGrid.AutoGenerateColumns = true;
                 dbDataGrid.ItemsSource = table.DefaultView;
 
-                connection.Close();
             }
             //select kategories, room, kafedras,date
             if ((categoriesComboBox.Text != "Категории" && roomNameText.Text != "room" && kafedrNameText.Text != "" && isProtectedComboBox.Text.Equals("Защищённость") && kalendarDatePicker.SelectedDate != null) ||
@@ -707,14 +668,12 @@ namespace AccessPoint
                     "                                          categories = \"" + categoriesComboBox.Text + "\" AND " +
                     "                                          date = \"" + kalendarDatePicker.SelectedDate.Value.ToString("yyyy-MM-dd") + "\"", connection);
 
-                connection.Open();
 
                 MySqlDataReader reader = command.ExecuteReader();
                 table.Load(reader);
                 dbDataGrid.AutoGenerateColumns = true;
                 dbDataGrid.ItemsSource = table.DefaultView;
 
-                connection.Close();
             }
             //select kategories,room,isProtected,date
             if ((categoriesComboBox.Text != "Категории" && roomNameText.Text != "room" && kafedrNameText.Text.Equals("") && isProtectedComboBox.Text != "Защищённость" && kalendarDatePicker.SelectedDate != null) ||
@@ -734,14 +693,12 @@ namespace AccessPoint
                     "                                          isProtected = \"" + isProtectedComboBox.Text + "\" AND " +
                     "                                          date = \"" + kalendarDatePicker.SelectedDate.Value.ToString("yyyy-MM-dd") + "\"", connection);
 
-                connection.Open();
 
                 MySqlDataReader reader = command.ExecuteReader();
                 table.Load(reader);
                 dbDataGrid.AutoGenerateColumns = true;
                 dbDataGrid.ItemsSource = table.DefaultView;
 
-                connection.Close();
             }
             //select kategories,cathedras,isProtected,date
             if ((categoriesComboBox.Text != "Категории" && roomNameText.Text.Equals("room") && kafedrNameText.Text != "" && isProtectedComboBox.Text != "Защищённость" && kalendarDatePicker.SelectedDate != null) ||
@@ -761,14 +718,12 @@ namespace AccessPoint
                     "                                          isProtected = \"" + isProtectedComboBox.Text + "\" AND " +
                     "                                          date = \"" + kalendarDatePicker.SelectedDate.Value.ToString("yyyy-MM-dd") + "\"", connection);
 
-                connection.Open();
 
                 MySqlDataReader reader = command.ExecuteReader();
                 table.Load(reader);
                 dbDataGrid.AutoGenerateColumns = true;
                 dbDataGrid.ItemsSource = table.DefaultView;
 
-                connection.Close();
             }
 
             //select room,cathedras,isProtected,date
@@ -789,14 +744,12 @@ namespace AccessPoint
                     "                                          isProtected = \"" + isProtectedComboBox.Text + "\" AND " +
                     "                                          date = \"" + kalendarDatePicker.SelectedDate.Value.ToString("yyyy-MM-dd") + "\"", connection);
 
-                connection.Open();
 
                 MySqlDataReader reader = command.ExecuteReader();
                 table.Load(reader);
                 dbDataGrid.AutoGenerateColumns = true;
                 dbDataGrid.ItemsSource = table.DefaultView;
 
-                connection.Close();
             }
             //select evrething
             if ((categoriesComboBox.Text != "Категории" && roomNameText.Text != "room" && kafedrNameText.Text != "" && isProtectedComboBox.Text != "Защищённость" && kalendarDatePicker.SelectedDate != null) ||
@@ -817,7 +770,6 @@ namespace AccessPoint
                     "                                          isProtected = \"" + isProtectedComboBox.Text + "\" AND " +
                     "                                          date = \"" + kalendarDatePicker.SelectedDate.Value.ToString("yyyy-MM-dd") + "\"", connection);
 
-                connection.Open();
 
                 MySqlDataReader reader = command.ExecuteReader();
                 table.Load(reader);
@@ -842,7 +794,6 @@ namespace AccessPoint
         private void viewButton_Click(object sender, RoutedEventArgs e)
         {
             viewWindow view = new viewWindow();
-            view.Pass = pass;
             view.Show();
             dbWindow.Close();
         }

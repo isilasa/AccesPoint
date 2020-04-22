@@ -62,6 +62,7 @@
     <Compile Include="deleteWindow.xaml.cs">
       <DependentUpon>deleteWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GivePass.cs" />
     <Compile Include="viewWindow.xaml.cs">
       <DependentUpon>viewWindow.xaml</DependentUpon>
     </Compile>
